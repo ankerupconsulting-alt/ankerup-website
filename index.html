@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Anker.up Consulting</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #1e3a8a;
+      --blue-mid:#2d4fc4;
+      --purple:  #6d28d9;
+      --purple-lt:#8b5cf6;
+      --grad: linear-gradient(135deg, #1e3a8a 0%, #4c1d95 100%);
+      --grad-soft: linear-gradient(135deg, #ede9fe 0%, #dbeafe 100%);
+      --text: #1e1b2e;
+      --muted: #64748b;
+      --light: #f8f7ff;
+      --white: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #e8e4f8;
+      padding: 0 2rem;
+      height: 70px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none;
+    }
+
+    .nav-logo svg { width: 40px; height: 40px; }
+
+    .nav-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-cta {
+      background: var(--grad);
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.9; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--grad);
+      display: flex; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 7rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .hero-content { position: relative; max-width: 760px; }
+
+    .hero-logo {
+      width: 100px; height: 100px;
+      margin: 0 auto 2rem;
+      filter: drop-shadow(0 8px 24px rgba(0,0,0,0.3));
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.15;
+      letter-spacing: -1px;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero h1 span {
+      display: block;
+      font-weight: 300;
+      font-size: 0.6em;
+      opacity: 0.85;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      font-weight: 400;
+    }
+
+    .hero-btns {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: white;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.6);
+      color: white;
+      text-decoration: none;
+      padding: 0.85rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+    /* ── SECTIONS ── */
+    section { padding: 5rem 2rem; }
+
+    .container { max-width: 1060px; margin: 0 auto; }
+
+    .section-label {
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--light); }
+
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 1rem;
+      line-height: 1.75;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 16px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 16px rgba(109,40,217,0.08);
+      border: 1px solid #ede9fe;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 2.4rem;
+      font-weight: 800;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px solid #ede9fe;
+      box-shadow: 0 2px 20px rgba(109,40,217,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: var(--grad);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(109,40,217,0.14); }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--grad-soft);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.25rem;
+      font-size: 1.5rem;
+    }
+
+    .service-card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--grad); color: white; text-align: center; }
+
+    .contact .section-title { color: white; }
+    .contact .section-label {
+      background: rgba(255,255,255,0.7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .contact-sub {
+      color: rgba(255,255,255,0.8);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin: 0 auto 3rem;
+    }
+
+    .contact-cards {
+      display: flex;
+      gap: 1.25rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      min-width: 200px;
+      text-decoration: none;
+      color: white;
+      transition: background 0.2s, transform 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      backdrop-filter: blur(8px);
+    }
+    .contact-card:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    .contact-card-icon { font-size: 1.5rem; }
+    .contact-card-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; opacity: 0.7; }
+    .contact-card-value { font-size: 0.9rem; font-weight: 600; }
+
+    .contact-btn {
+      display: inline-block;
+      background: white;
+      color: var(--blue);
+      text-decoration: none;
+      padding: 0.9rem 2.5rem;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .contact-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(0,0,0,0.25); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #0f0c1d;
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+    }
+
+    footer span {
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 600;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      .about-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .nav-name { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="nav-logo">
+      <!-- Anchor + Crown SVG Logo -->
+      <svg viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="100" y2="115" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#1e3a8a"/>
+            <stop offset="100%" stop-color="#6d28d9"/>
+          </linearGradient>
+        </defs>
+        <!-- Crown dots -->
+        <circle cx="32" cy="8"  r="4.5" fill="url(#g1)"/>
+        <circle cx="50" cy="4"  r="4.5" fill="url(#g1)"/>
+        <circle cx="68" cy="8"  r="4.5" fill="url(#g1)"/>
+        <!-- Crown body -->
+        <path d="M20 30 L32 13 L41 26 L50 10 L59 26 L68 13 L80 30 L80 42 L20 42 Z" fill="url(#g1)"/>
+        <!-- Crown base band -->
+        <rect x="20" y="38" width="60" height="8" rx="2" fill="url(#g1)"/>
+        <!-- Anchor ring -->
+        <circle cx="50" cy="58" r="9" stroke="url(#g1)" stroke-width="5" fill="none"/>
+        <!-- Anchor shaft -->
+        <rect x="47" y="62" width="6" height="34" rx="3" fill="url(#g1)"/>
+        <!-- Anchor crossbar -->
+        <rect x="22" y="74" width="56" height="6" rx="3" fill="url(#g1)"/>
+        <!-- Left fluke -->
+        <path d="M47 96 Q30 92 24 103 Q30 112 47 106 Z" fill="url(#g1)"/>
+        <!-- Right fluke -->
+        <path d="M53 96 Q70 92 76 103 Q70 112 53 106 Z" fill="url(#g1)"/>
+      </svg>
+    </div>
+    <span class="nav-name">Anker.up Consulting</span>
+  </a>
+  <a href="#contact" class="nav-cta">Get in Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo">
+      <svg viewBox="0 0 100 115" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="g2" x1="0" y1="0" x2="100" y2="115" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="100%" stop-color="#c4b5fd"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="8"  r="4.5" fill="url(#g2)"/>
+        <circle cx="50" cy="4"  r="4.5" fill="url(#g2)"/>
+        <circle cx="68" cy="8"  r="4.5" fill="url(#g2)"/>
+        <path d="M20 30 L32 13 L41 26 L50 10 L59 26 L68 13 L80 30 L80 42 L20 42 Z" fill="url(#g2)"/>
+        <rect x="20" y="38" width="60" height="8" rx="2" fill="url(#g2)"/>
+        <circle cx="50" cy="58" r="9" stroke="url(#g2)" stroke-width="5" fill="none"/>
+        <rect x="47" y="62" width="6" height="34" rx="3" fill="url(#g2)"/>
+        <rect x="22" y="74" width="56" height="6" rx="3" fill="url(#g2)"/>
+        <path d="M47 96 Q30 92 24 103 Q30 112 47 106 Z" fill="url(#g2)"/>
+        <path d="M53 96 Q70 92 76 103 Q70 112 53 106 Z" fill="url(#g2)"/>
+      </svg>
+    </div>
+    <h1>
+      Anker.up Consulting
+      <span>Strategy. Growth. Results.</span>
+    </h1>
+    <p class="hero-sub">Helping businesses navigate complexity, build revenue, and operate at their full potential — from San Diego to everywhere.</p>
+    <div class="hero-btns">
+      <a href="#contact" class="btn-primary">Work With Me</a>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-text">
+        <p class="section-label">About</p>
+        <h2 class="section-title">A Decade of Driving Growth</h2>
+        <p>With over ten years of experience leading sales teams and optimizing business operations, I founded Anker.up Consulting to bring enterprise-level strategy to businesses of every size.</p>
+        <p>I've built revenue pipelines, restructured operations, and launched go-to-market strategies that deliver real, measurable results. Now I bring that same expertise to clients as a freelance consultant — hands-on, accessible, and focused on what actually moves the needle.</p>
+        <p>Based in San Diego, I partner with founders, executives, and growing teams ready to scale smarter.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Clients Served</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4</div>
+          <div class="stat-label">Core Disciplines</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">SD</div>
+          <div class="stat-label">San Diego Based</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div style="text-align:center; max-width: 600px; margin: 0 auto;">
+      <p class="section-label">What I Do</p>
+      <h2 class="section-title">Consulting Services</h2>
+      <p style="color: var(--muted); font-size: 1rem;">Practical, proven expertise across the areas that drive business growth — delivered without the overhead of a big agency.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">📈</div>
+        <h3>Sales Strategy</h3>
+        <p>Building and optimizing sales systems that convert — from pipeline design and team structure to closing processes and performance metrics.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🤝</div>
+        <h3>Business Development</h3>
+        <p>Identifying and securing new revenue opportunities through strategic partnerships, market expansion, and relationship-driven outreach.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🧭</div>
+        <h3>Strategy & Advisory</h3>
+        <p>Helping leadership teams define clear direction, prioritize initiatives, and build actionable plans that align with long-term goals.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">⚙️</div>
+        <h3>Operations & Process</h3>
+        <p>Streamlining how your business runs — eliminating inefficiencies, building scalable workflows, and improving cross-team execution.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">📣</div>
+        <h3>Marketing & Branding</h3>
+        <p>Crafting positioning, messaging, and marketing strategies that resonate with your ideal customers and drive consistent demand.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">🚀</div>
+        <h3>Go-to-Market Planning</h3>
+        <p>Launching new products, services, or markets with a structured plan that covers audience targeting, messaging, and revenue activation.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-label">Let's Connect</p>
+    <h2 class="section-title">Ready to Get Started?</h2>
+    <p class="contact-sub">Whether you have a specific challenge in mind or just want to explore what's possible — reach out. Let's talk.</p>
+
+    <div class="contact-cards">
+      <a href="mailto:anker.up.consulting@gmail.com" class="contact-card">
+        <span class="contact-card-icon">✉️</span>
+        <span class="contact-card-label">Email</span>
+        <span class="contact-card-value">anker.up.consulting@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/jarankins" target="_blank" class="contact-card">
+        <span class="contact-card-icon">💼</span>
+        <span class="contact-card-label">LinkedIn</span>
+        <span class="contact-card-value">/in/jarankins</span>
+      </a>
+      <div class="contact-card">
+        <span class="contact-card-icon">📍</span>
+        <span class="contact-card-label">Location</span>
+        <span class="contact-card-value">San Diego, CA</span>
+      </div>
+    </div>
+
+    <a href="mailto:anker.up.consulting@gmail.com" class="contact-btn">Send Me a Message →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 <span>Anker.up Consulting</span> · San Diego, CA · All rights reserved.</p>
+</footer>
+
+</body>
+</html>
